@@ -81,7 +81,7 @@ var retroDefaultConfig = {
   accent_color: "#FFD700"
 };
 
-let config = defaultConfig;
+let config = retroDefaultConfig;
 
 // Data SDK Handler
 var dataHandler = {
@@ -226,9 +226,11 @@ function updateNavigation() {
 }
 
 function updateCharacterSheet() {
+  const noviceWarning = document.getElementById('noviceWarning');
   if (currentUser) {
-    // Hide novice warning
-    document.getElementById('noviceWarning').style.display = 'none';
+    if (noviceWarning) {
+      noviceWarning.style.display = 'none';
+    }
 
     // Update character info
     document.getElementById('characterName').textContent = currentUser.display_name.toUpperCase();
@@ -272,8 +274,6 @@ function updateCharacterSheet() {
     document.getElementById('loginCharacterBtn').style.display = 'none';
     document.getElementById('logoutCharacterBtn').style.display = 'block';
   } else {
-    // Show novice warning
-    const noviceWarning = document.getElementById('noviceWarning');
     if (noviceWarning) {
       noviceWarning.style.display = 'block';
     }
@@ -508,7 +508,7 @@ document.getElementById('loginModal').addEventListener('click', (e) => {
 // Initialize SDKs
 if (window.elementSdk) {
   window.elementSdk.init({
-    defaultConfig,
+    defaultConfig: retroDefaultConfig,
     onConfigChange,
     mapToCapabilities,
     mapToEditPanelValues
